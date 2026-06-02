@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informe Meta Ads · Tiendas TRU & Comertex · Mayo 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{
+    --paper:#FBF8F3;
+    --paper-2:#F4EEE4;
+    --ink:#1C1B19;
+    --ink-soft:#3a3833;
+    --muted:#8A8578;
+    --line:#E4DBCD;
+    --card:#FFFFFF;
+    --clay:#B4452E;       /* primary accent */
+    --clay-soft:#e9d2c9;
+    --green:#2F6E4F;      /* positive / strong ROAS */
+    --green-soft:#d9e7df;
+    --amber:#C98A3D;      /* attention */
+    --amber-soft:#f1e2c9;
+    --red:#9c3326;        /* underperformance */
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Hanken Grotesk',sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:0 28px;}
+  .num{font-family:'IBM Plex Mono',monospace;font-feature-settings:"tnum";}
+
+  /* ---------- COVER ---------- */
+  .cover{
+    background:linear-gradient(155deg,#211f1b 0%,#2b2722 55%,#3a2c25 100%);
+    color:#f5efe6;
+    padding:72px 28px 64px;
+    position:relative;
+    overflow:hidden;
+  }
+  .cover::after{
+    content:"";position:absolute;right:-120px;top:-120px;width:380px;height:380px;border-radius:50%;
+    background:radial-gradient(circle at center,rgba(180,69,46,.55),transparent 68%);
+    filter:blur(8px);
+  }
+  .cover .wrap{position:relative;z-index:2;}
+  .eyebrow{
+    font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:#d8b6a5;
+    font-weight:700;display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::before{content:"";width:34px;height:2px;background:var(--clay);display:inline-block;}
+  .cover h1{
+    font-family:'Fraunces',serif;font-weight:600;font-size:clamp(38px,6vw,62px);
+    line-height:1.02;margin:22px 0 10px;letter-spacing:-.015em;
+  }
+  .cover h1 em{font-style:italic;color:#e7a98f;}
+  .cover .sub{font-size:18px;color:#cdc4b6;max-width:620px;margin-top:6px;}
+  .cover-meta{
+    margin-top:40px;display:flex;flex-wrap:wrap;gap:36px;
+    border-top:1px solid rgba(255,255,255,.12);padding-top:24px;
+  }
+  .cover-meta div span{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#a89e8f;margin-bottom:5px;}
+  .cover-meta div b{font-weight:600;font-size:16px;color:#f5efe6;}
+  .agency-tag{position:absolute;bottom:26px;right:28px;z-index:2;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#a89e8f;}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:58px 0 12px;}
+  .kicker{
+    font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--clay);
+    font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:10px;
+  }
+  .kicker .n{
+    font-family:'IBM Plex Mono',monospace;background:var(--clay);color:#fff;
+    width:26px;height:26px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;
+  }
+  h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(26px,3.4vw,36px);line-height:1.1;letter-spacing:-.01em;margin-bottom:8px;}
+  h3{font-family:'Fraunces',serif;font-weight:600;font-size:22px;margin:30px 0 6px;letter-spacing:-.01em;}
+  p{color:var(--ink-soft);margin-bottom:14px;}
+  p.lead{font-size:18px;color:var(--ink);}
+  .divider{height:1px;background:var(--line);margin:8px 0;}
+
+  /* ---------- KPI GRID ---------- */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:26px 0 8px;}
+  .kpi{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 18px;
+    position:relative;overflow:hidden;
+  }
+  .kpi::before{content:"";position:absolute;left:0;top:0;width:4px;height:100%;background:var(--clay);}
+  .kpi.green::before{background:var(--green);}
+  .kpi.amber::before{background:var(--amber);}
+  .kpi .label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:8px;}
+  .kpi .val{font-family:'IBM Plex Mono',monospace;font-size:28px;font-weight:600;line-height:1;letter-spacing:-.02em;}
+  .kpi .val small{font-size:15px;color:var(--muted);font-weight:500;}
+  .kpi .foot{font-size:12px;color:var(--muted);margin-top:8px;}
+
+  /* ---------- CALLOUT COLUMNS ---------- */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px;}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 22px 18px;}
+  .panel h4{font-family:'Fraunces',serif;font-size:18px;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:9px;}
+  .panel h4 .dot{width:9px;height:9px;border-radius:50%;background:var(--green);}
+  .panel.warn h4 .dot{background:var(--amber);}
+  .panel ul{list-style:none;}
+  .panel li{position:relative;padding-left:22px;margin-bottom:10px;font-size:14.5px;color:var(--ink-soft);}
+  .panel li::before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;border-radius:2px;background:var(--green);}
+  .panel.warn li::before{background:var(--amber);}
+  .panel li b{color:var(--ink);}
+
+  /* ---------- TABLE ---------- */
+  .tablecard{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:22px 0;}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  thead th{
+    background:var(--paper-2);text-align:left;padding:12px 14px;font-size:11px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--ink-soft);font-weight:800;border-bottom:1px solid var(--line);
+  }
+  thead th.r,tbody td.r{text-align:right;}
+  tbody td{padding:11px 14px;border-bottom:1px solid var(--line);color:var(--ink-soft);}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody td.name{color:var(--ink);font-weight:600;}
+  tbody tr.total td{background:var(--paper-2);font-weight:700;color:var(--ink);}
+  .pill{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:12px;padding:2px 8px;border-radius:20px;font-weight:600;}
+  .pill.g{background:var(--green-soft);color:var(--green);}
+  .pill.a{background:var(--amber-soft);color:#8a5a1d;}
+  .pill.r{background:var(--clay-soft);color:var(--red);}
+
+  /* ---------- CAMPAIGN BLOCKS ---------- */
+  .camp{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;margin:18px 0;position:relative;}
+  .camp-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;flex-wrap:wrap;margin-bottom:6px;}
+  .camp-tag{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.05em;}
+  .camp h3{margin:4px 0 0;}
+  .verdict{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;border-radius:8px;white-space:nowrap;}
+  .verdict.win{background:var(--green-soft);color:var(--green);}
+  .verdict.mid{background:var(--amber-soft);color:#8a5a1d;}
+  .verdict.low{background:var(--clay-soft);color:var(--red);}
+  .metrics{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 14px;}
+  .metric{background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:9px 13px;min-width:96px;}
+  .metric .m-l{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+  .metric .m-v{font-family:'IBM Plex Mono',monospace;font-size:17px;font-weight:600;margin-top:3px;}
+  .metric .m-v.g{color:var(--green);}
+  .metric .m-v.r{color:var(--red);}
+  .metric .m-v.a{color:#8a5a1d;}
+  .camp .read{font-size:14.5px;color:var(--ink-soft);}
+  .camp .read b{color:var(--ink);}
+
+  /* ---------- CHART ---------- */
+  .chartcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;margin:22px 0;}
+  .chartcard .cap{font-size:12px;color:var(--muted);margin-top:14px;text-align:center;}
+  .chart-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:22px;}
+  .chart-box{position:relative;height:300px;}
+
+  /* ---------- RECOMMENDATIONS ---------- */
+  .rec{display:flex;gap:18px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:12px 0;}
+  .rec .pr{
+    flex-shrink:0;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;
+    width:auto;padding:5px 11px;height:fit-content;border-radius:8px;letter-spacing:.04em;text-transform:uppercase;
+  }
+  .pr.p1{background:var(--clay);color:#fff;}
+  .pr.p2{background:var(--amber-soft);color:#8a5a1d;}
+  .pr.p3{background:var(--paper-2);color:var(--ink-soft);}
+  .rec .rec-body h4{font-family:'Fraunces',serif;font-size:18px;font-weight:600;margin-bottom:4px;}
+  .rec .rec-body p{font-size:14.5px;margin-bottom:0;}
+
+  /* ---------- LEARNINGS ---------- */
+  .learn{counter-reset:l;margin-top:20px;}
+  .learn-item{display:flex;gap:20px;padding:18px 0;border-bottom:1px solid var(--line);}
+  .learn-item:last-child{border-bottom:none;}
+  .learn-item .ln{
+    counter-increment:l;font-family:'Fraunces',serif;font-style:italic;font-size:34px;color:var(--clay);
+    line-height:1;flex-shrink:0;width:54px;
+  }
+  .learn-item .ln::before{content:"0" counter(l);}
+  .learn-item h4{font-family:'Fraunces',serif;font-size:19px;font-weight:600;margin-bottom:4px;}
+  .learn-item p{font-size:14.5px;margin-bottom:0;}
+
+  /* ---------- CONCLUSION ---------- */
+  .conclude{background:linear-gradient(155deg,#211f1b,#322a25);color:#f0e9de;border-radius:18px;padding:42px;margin:24px 0;}
+  .conclude h2{color:#fff;}
+  .conclude h2 em{color:#e7a98f;font-style:italic;}
+  .conclude p{color:#d3cabb;}
+  .conclude .sig{margin-top:26px;padding-top:20px;border-top:1px solid rgba(255,255,255,.14);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:13px;color:#a89e8f;}
+  .conclude .sig b{color:#f0e9de;display:block;font-family:'Fraunces',serif;font-size:16px;}
+
+  footer{padding:30px 0 60px;color:var(--muted);font-size:12.5px;text-align:center;}
+  footer .divider{margin-bottom:22px;}
+
+  @media (max-width:760px){
+    .kpis{grid-template-columns:repeat(2,1fr);}
+    .cols,.chart-grid{grid-template-columns:1fr;}
+  }
+  @media print{
+    body{background:#fff;}
+    .cover{padding:48px 28px;}
+    section{padding:30px 0 8px;break-inside:avoid;}
+    .camp,.chartcard,.tablecard,.conclude,.rec,.kpi,.panel{break-inside:avoid;box-shadow:none;}
+    .chart-box{height:260px;}
+    a{color:inherit;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<header class="cover">
+  <div class="wrap">
+    <div class="eyebrow">Informe de Performance · Meta Ads</div>
+    <h1>Resultados de <em>Mayo 2026</em><br>Tiendas TRU &amp; Comertex</h1>
+    <p class="sub">Análisis estratégico de inversión publicitaria, hallazgos de optimización y plan de acción para junio.</p>
+    <div class="cover-meta">
+      <div><span>Cuenta publicitaria</span><b>Tiendas Tru | Publicidad</b></div>
+      <div><span>ID de cuenta</span><b class="num">427337331869853</b></div>
+      <div><span>Período</span><b>01 – 31 May 2026</b></div>
+      <div><span>Preparado por</span><b>JP Digital</b></div>
+    </div>
+  </div>
+  <div class="agency-tag">JP Digital · Performance Partner</div>
+</header>
+
+<div class="wrap">
+
+<!-- ============ 1. RESUMEN EJECUTIVO ============ -->
+<section id="resumen">
+  <div class="kicker"><span class="n">01</span> Resumen Ejecutivo</div>
+  <h2>El mes cerró apalancado en activos creativos ya validados</h2>
+  <p class="lead">Mayo se sostuvo sobre una estrategia de escalamiento de anuncios ganadores y catálogo dinámico, que concentraron el volumen de ventas con un retorno sólido. Las campañas estacionales (Día de la Madre) quedaron por debajo del estándar de la cuenta y dejan aprendizajes claros para próximas fechas comerciales.</p>
+
+  <div class="kpis">
+    <div class="kpi">
+      <div class="label">Inversión total</div>
+      <div class="val">$11,1<small>M</small></div>
+      <div class="foot">COP · 19 campañas activas</div>
+    </div>
+    <div class="kpi green">
+      <div class="label">Ingresos atribuidos</div>
+      <div class="val">$33,7<small>M</small></div>
+      <div class="foot">COP · ventas Meta + web</div>
+    </div>
+    <div class="kpi green">
+      <div class="label">ROAS de ventas</div>
+      <div class="val">3,40<small>x</small></div>
+      <div class="foot">Retorno mezclado de la cuenta</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Compras</div>
+      <div class="val">159</div>
+      <div class="foot">Ticket prom. ~$211.800 COP</div>
+    </div>
+    <div class="kpi green">
+      <div class="label">Leads Comertex</div>
+      <div class="val">112</div>
+      <div class="foot">CPL $2.578 COP</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Impresiones</div>
+      <div class="val">1,07<small>M</small></div>
+      <div class="foot">Alcance amplio multimarca</div>
+    </div>
+    <div class="kpi amber">
+      <div class="label">Mejor ROAS</div>
+      <div class="val">5,44<small>x</small></div>
+      <div class="foot">Retargeting público caliente</div>
+    </div>
+    <div class="kpi amber">
+      <div class="label">ROAS más bajo</div>
+      <div class="val">1,30<small>x</small></div>
+      <div class="foot">Día de la Madre nacional</div>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="panel">
+      <h4><span class="dot"></span>Logros del mes</h4>
+      <ul>
+        <li>El <b>escalamiento de anuncios ganadores</b> generó 37 compras con ROAS 3,55x, siendo el motor de volumen de la cuenta.</li>
+        <li>El <b>catálogo dinámico</b> fue el mejor en eficiencia/volumen combinados: 35 compras y ROAS 4,75x.</li>
+        <li>El <b>retargeting de público caliente</b> entregó el ROAS más alto de la cuenta: 5,44x.</li>
+        <li><b>Comertex</b> consolidó su embudo de captación con 112 leads a un CPL muy competitivo de $2.578 COP.</li>
+      </ul>
+    </div>
+    <div class="panel warn">
+      <h4><span class="dot"></span>Retos detectados</h4>
+      <ul>
+        <li>Las campañas de <b>Día de la Madre</b> (nacional y Cúcuta) no convirtieron: ROAS 1,30x y 0 compras respectivamente.</li>
+        <li>El <b>remarketing de carritos</b> alcanzó una frecuencia de 6,08 — señal temprana de fatiga publicitaria.</li>
+        <li>La campaña de <b>toallas en descuento</b> arrancó tarde en el mes y no alcanzó a escalar.</li>
+        <li>El catálogo dinámico opera con productos agotados que limitan su techo de rendimiento.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Oportunidades inmediatas</h3>
+  <p>Tres palancas pueden mover el resultado en junio sin aumentar el riesgo: (1) sanear el catálogo para liberar todo el potencial de los anuncios dinámicos; (2) construir las fechas comerciales con un embudo por etapas en lugar de activaciones de último momento; y (3) renovar creativos del remarketing antes de que la fatiga erosione el retorno.</p>
+</section>
+
+<!-- ============ 2. ESTRATEGIA ============ -->
+<section id="estrategia">
+  <div class="kicker"><span class="n">02</span> Estrategia Implementada en Mayo</div>
+  <h2>Una cuenta operada en tres frentes</h2>
+  <p>Durante mayo la inversión se distribuyó deliberadamente entre tres objetivos de negocio, priorizando la rentabilidad sobre el volumen bruto:</p>
+
+  <div class="cols">
+    <div class="panel">
+      <h4><span class="dot"></span>Frente comercial — TRU Ventas</h4>
+      <ul>
+        <li><b>~$9,9M COP</b> hacia conversión: escalamiento de ganadores, catálogo dinámico, público frío y remarketing.</li>
+        <li>Estructura de un anuncio ganador por conjunto para concentrar el aprendizaje del algoritmo.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h4><span class="dot"></span>Frente estacional — Día de la Madre</h4>
+      <ul>
+        <li><b>~$1,03M COP</b> en activaciones nacionales y una campaña específica para Cúcuta por su calendario propio.</li>
+        <li>Objetivo: capturar el pico de demanda de la fecha comercial.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h4><span class="dot"></span>Frente B2B — Comertex</h4>
+      <ul>
+        <li><b>~$0,98M COP</b> en reconocimiento de marca, generación de leads (formulario Zoho) y mensajería de talleres.</li>
+        <li>Alimenta el ecosistema comercial y de relacionamiento de la empresa.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h4><span class="dot"></span>Frente de marca — Branding TRU</h4>
+      <ul>
+        <li><b>~$0,19M COP</b> en reconocimiento y crecimiento de seguidores en Instagram.</li>
+        <li>Sostiene el público caliente que luego rentabilizan las campañas de venta.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHART ============ -->
+<section>
+  <div class="chartcard">
+    <div class="chart-grid">
+      <div>
+        <h3 style="margin-top:0">Inversión vs. ROAS por campaña</h3>
+        <div class="chart-box"><canvas id="roasChart"></canvas></div>
+      </div>
+      <div>
+        <h3 style="margin-top:0">Distribución de la inversión</h3>
+        <div class="chart-box"><canvas id="splitChart"></canvas></div>
+      </div>
+    </div>
+    <p class="cap">Las barras muestran inversión (COP); la línea, el ROAS de cada campaña de ventas. El umbral de rentabilidad de la cuenta se ubica alrededor de 3,0x.</p>
+  </div>
+</section>
+
+<!-- ============ 3. ANÁLISIS DE CAMPAÑAS ============ -->
+<section id="campanas">
+  <div class="kicker"><span class="n">03</span> Análisis de Campañas</div>
+  <h2>Lectura campaña por campaña</h2>
+  <p>A continuación, el desempeño real de cada iniciativa con su lectura estratégica. Las campañas se ordenan según la narrativa del mes.</p>
+
+  <!-- Tabla resumen -->
+  <div class="tablecard">
+    <table>
+      <thead>
+        <tr>
+          <th>Campaña</th>
+          <th class="r">Inversión</th>
+          <th class="r">Compras / Result.</th>
+          <th class="r">ROAS</th>
+          <th class="r">CPA / CPR</th>
+          <th class="r">Frec.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="name">Escalamiento Anuncios Ganadores</td><td class="r num">$2.378.466</td><td class="r num">37</td><td class="r"><span class="pill g">3,55x</span></td><td class="r num">$64.283</td><td class="r num">1,98</td></tr>
+        <tr><td class="name">Catálogo Dinámico</td><td class="r num">$1.800.456</td><td class="r num">35</td><td class="r"><span class="pill g">4,75x</span></td><td class="r num">$51.442</td><td class="r num">3,40</td></tr>
+        <tr><td class="name">Público Frío · Testeo</td><td class="r num">$1.456.686</td><td class="r num">23</td><td class="r"><span class="pill g">3,41x</span></td><td class="r num">$63.334</td><td class="r num">1,97</td></tr>
+        <tr><td class="name">Escala Ganadores · 22 may</td><td class="r num">$1.423.765</td><td class="r num">22</td><td class="r"><span class="pill a">2,78x</span></td><td class="r num">$64.717</td><td class="r num">1,73</td></tr>
+        <tr><td class="name">Día de la Madre · Nacional</td><td class="r num">$777.654</td><td class="r num">6</td><td class="r"><span class="pill r">1,30x</span></td><td class="r num">$129.609</td><td class="r num">3,75</td></tr>
+        <tr><td class="name">Público Frío · Escalamiento</td><td class="r num">$715.849</td><td class="r num">13</td><td class="r"><span class="pill g">3,03x</span></td><td class="r num">$55.065</td><td class="r num">2,00</td></tr>
+        <tr><td class="name">Remarketing Carritos (nuevo)</td><td class="r num">$527.009</td><td class="r num">10</td><td class="r"><span class="pill g">3,66x</span></td><td class="r num">$52.701</td><td class="r num">6,08</td></tr>
+        <tr><td class="name">Retargeting Público Caliente</td><td class="r num">$400.661</td><td class="r num">9</td><td class="r"><span class="pill g">5,44x</span></td><td class="r num">$44.518</td><td class="r num">2,54</td></tr>
+        <tr><td class="name">Toalla 50% OFF</td><td class="r num">$185.004</td><td class="r num">4</td><td class="r"><span class="pill a">2,56x</span></td><td class="r num">$46.251</td><td class="r num">1,64</td></tr>
+        <tr><td class="name">Día de la Madre · Cúcuta</td><td class="r num">$251.820</td><td class="r num">0</td><td class="r"><span class="pill r">—</span></td><td class="r num">—</td><td class="r num">3,25</td></tr>
+        <tr><td class="name">Comertex · Leads (Zoho)</td><td class="r num">$288.718</td><td class="r num">112 leads</td><td class="r"><span class="pill g">CPL $2.578</span></td><td class="r num">$2.578</td><td class="r num">2,17</td></tr>
+        <tr><td class="name">Comertex · Reconocimiento</td><td class="r num">$370.599</td><td class="r num">53.488 TP</td><td class="r"><span class="pill g">CPTP $6,9</span></td><td class="r num">$6,9</td><td class="r num">1,30</td></tr>
+        <tr class="total"><td>Total cuenta (activas)</td><td class="r num">$11.087.510</td><td class="r num">159 compras · 112 leads</td><td class="r num">3,40x</td><td class="r">—</td><td class="r">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Campaña 1 -->
+  <div class="camp">
+    <div class="camp-head">
+      <div><div class="camp-tag">CAMPAÑA 01 · Estacional</div><h3>Mes de las Madres — Nacional</h3></div>
+      <span class="verdict low">No alcanzó el objetivo</span>
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="m-l">Inversión</div><div class="m-v">$777.654</div></div>
+      <div class="metric"><div class="m-l">Compras</div><div class="m-v">6</div></div>
+      <div class="metric"><div class="m-l">ROAS</div><div class="m-v r">1,30x</div></div>
+      <div class="metric"><div class="m-l">CPA</div><div class="m-v r">$129.609</div></div>
+      <div class="metric"><div class="m-l">CTR</div><div class="m-v">2,66%</div></div>
+      <div class="metric"><div class="m-l">CPM</div><div class="m-v a">$17.328</div></div>
+      <div class="metric"><div class="m-l">Frecuencia</div><div class="m-v a">3,75</div></div>
+    </div>
+    <p class="read">La campaña confirma en datos lo observado cualitativamente: <b>los Reels utilizados no conectaron con la carga emocional y comercial de la fecha</b>. El CPM elevado ($17.328) y la frecuencia de 3,75 indican que se saturó una audiencia que no respondía, mientras el CTR de 2,66% quedó por debajo del 3,7%–4,6% que logran los anuncios ganadores de la cuenta. <b>Hipótesis principal:</b> el Key Visual priorizó producto sobre emoción y propuesta de valor de regalo; el algoritmo no encontró una señal de compra clara y elevó el costo por resultado a $129.609, casi el doble del CPA saludable de la cuenta (~$55.000–$64.000).</p>
+  </div>
+
+  <!-- Campaña 2 -->
+  <div class="camp">
+    <div class="camp-head">
+      <div><div class="camp-tag">CAMPAÑA 02 · Estacional regional</div><h3>Día de las Madres — Cúcuta</h3></div>
+      <span class="verdict low">Sin conversiones</span>
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="m-l">Inversión</div><div class="m-v">$251.820</div></div>
+      <div class="metric"><div class="m-l">Compras</div><div class="m-v r">0</div></div>
+      <div class="metric"><div class="m-l">Clicks</div><div class="m-v">361</div></div>
+      <div class="metric"><div class="m-l">CTR</div><div class="m-v a">2,15%</div></div>
+      <div class="metric"><div class="m-l">CPC</div><div class="m-v a">$698</div></div>
+      <div class="metric"><div class="m-l">Frecuencia</div><div class="m-v a">3,25</div></div>
+    </div>
+    <p class="read">La intención estratégica era correcta —aprovechar que Cúcuta celebra el Día de la Madre en fecha distinta al resto del país—, pero la ejecución impactó <b>casi exclusivamente público frío</b> en una ventana muy corta. Sin una fase previa de reconocimiento que "calentara" la audiencia, el anuncio pidió la compra a usuarios que aún no conocían la marca: 361 clics, CTR de 2,15% y cero conversiones. <b>Aprendizaje accionable:</b> las fechas comerciales regionales exigen una estructura por etapas —reconocimiento semanas antes, consideración/tráfico en la mitad, y conversión sobre públicos ya impactados al acercarse la fecha—. Esa secuencia habría permitido llegar al día clave con una audiencia tibia y un costo por resultado viable.</p>
+  </div>
+
+  <!-- Campaña 3 -->
+  <div class="camp">
+    <div class="camp-head">
+      <div><div class="camp-tag">CAMPAÑA 03 · Conversión</div><h3>Escalamiento de Anuncios Ganadores</h3></div>
+      <span class="verdict win">Motor del mes</span>
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="m-l">Inversión</div><div class="m-v">$2.378.466</div></div>
+      <div class="metric"><div class="m-l">Compras</div><div class="m-v g">37</div></div>
+      <div class="metric"><div class="m-l">ROAS</div><div class="m-v g">3,55x</div></div>
+      <div class="metric"><div class="m-l">CPA</div><div class="m-v">$64.283</div></div>
+      <div class="metric"><div class="m-l">CTR</div><div class="m-v g">3,73%</div></div>
+      <div class="metric"><div class="m-l">Alcance</div><div class="m-v">104.131</div></div>
+      <div class="metric"><div class="m-l">Frecuencia</div><div class="m-v g">1,98</div></div>
+    </div>
+    <p class="read">Fue la campaña de mayor inversión y mayor volumen del mes, y funcionó precisamente por apoyarse en activos validados: <b>Anuncio #8 (Influencer Ana Jara — Sábanas y Hogar), Anuncio #5 (Toallas) y Anuncio #3 (video con frases)</b>. La estructura de varios conjuntos con un único anuncio ganador por conjunto concentró el presupuesto donde el algoritmo ya tenía señal histórica de compra. El resultado: 37 compras, ROAS 3,55x y una frecuencia saludable de 1,98 que evita el desgaste. <b>Esta campaña es la prueba de la tesis del mes:</b> reciclar creatividad comprobada rinde más que apostar a piezas nuevas sin historial.</p>
+  </div>
+
+  <!-- Campaña 4 -->
+  <div class="camp">
+    <div class="camp-head">
+      <div><div class="camp-tag">CAMPAÑA 04 · Adquisición</div><h3>Escalamiento Adicional · Captación de Nuevos Usuarios</h3></div>
+      <span class="verdict win">Expansión limpia</span>
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="m-l">Inversión</div><div class="m-v">$1.423.765</div></div>
+      <div class="metric"><div class="m-l">Compras</div><div class="m-v">22</div></div>
+      <div class="metric"><div class="m-l">ROAS</div><div class="m-v a">2,78x</div></div>
+      <div class="metric"><div class="m-l">CPA</div><div class="m-v">$64.717</div></div>
+      <div class="metric"><div class="m-l">Alcance</div><div class="m-v g">61.713</div></div>
+      <div class="metric"><div class="m-l">Frecuencia</div><div class="m-v g">1,73</div></div>
+    </div>
+    <p class="read">Réplica de la estrategia ganadora, lanzada el 22 de mayo y reforzada con el conjunto de público frío de escalamiento (otras 13 compras y ROAS 3,03x). El valor estratégico está en las <b>exclusiones de audiencias personalizadas</b> —visitantes del sitio y usuarios que agregaron al carrito—: al sacar del targeting a quienes ya están en el embudo, la campaña destinó cada peso a <b>usuarios verdaderamente nuevos</b> y protegió al remarketing de competir contra sí mismo. La frecuencia de 1,73 (la más baja de las campañas de venta) confirma que efectivamente se expandió el alcance hacia público fresco. El ROAS de 2,78x es esperable y aceptable en adquisición pura: alimenta el público que las campañas de remarketing rentabilizarán después.</p>
+  </div>
+
+  <!-- Campaña 5 -->
+  <div class="camp">
+    <div class="camp-head">
+      <div><div class="camp-tag">CAMPAÑA 05 · Remarketing</div><h3>Remarketing — Renovación de Creativos</h3></div>
+      <span class="verdict mid">Funciona, vigilar fatiga</span>
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="m-l">Inversión (nuevo)</div><div class="m-v">$527.009</div></div>
+      <div class="metric"><div class="m-l">Compras</div><div class="m-v">10</div></div>
+      <div class="metric"><div class="m-l">ROAS nuevo</div><div class="m-v g">3,66x</div></div>
+      <div class="metric"><div class="m-l">ROAS legacy</div><div class="m-v g">5,44x</div></div>
+      <div class="metric"><div class="m-l">Frec. carritos</div><div class="m-v r">6,08</div></div>
+      <div class="metric"><div class="m-l">CPM carritos</div><div class="m-v a">$26.765</div></div>
+    </div>
+    <p class="read">Se creó una nueva campaña de remarketing de carritos al perder fuerza la anterior, y sumó 10 compras con un buen ROAS de 3,66x. <b>Matiz importante y honesto:</b> la campaña legacy de retargeting de público caliente siguió siendo la <b>más eficiente por peso de toda la cuenta (ROAS 5,44x)</b>, aunque con menor volumen. La nueva campaña ya muestra una <b>frecuencia de 6,08</b> y un CPM de $26.765 —las señales clásicas de saturación—. Lectura: actualizar el remarketing fue la decisión correcta para recuperar volumen, pero la base de remarketing es pequeña y se agota rápido. <b>Acción correctiva:</b> rotación quincenal de creativos, tope de frecuencia y ventanas de audiencia escalonadas (3 / 7 / 14 días) para no quemar al mismo usuario.</p>
+  </div>
+
+  <!-- Campaña 6 -->
+  <div class="camp">
+    <div class="camp-head">
+      <div><div class="camp-tag">CAMPAÑA 06 · Promoción</div><h3>Toallas y Tapetes en Descuento</h3></div>
+      <span class="verdict mid">Palanca válida, arrancó tarde</span>
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="m-l">Inversión</div><div class="m-v">$185.004</div></div>
+      <div class="metric"><div class="m-l">Compras</div><div class="m-v">4</div></div>
+      <div class="metric"><div class="m-l">ROAS</div><div class="m-v a">2,56x</div></div>
+      <div class="metric"><div class="m-l">CPA</div><div class="m-v">$46.251</div></div>
+      <div class="metric"><div class="m-l">Frecuencia</div><div class="m-v g">1,64</div></div>
+    </div>
+    <p class="read">La campaña de "Toalla 50% OFF" se activó en la recta final del mes y, pese a la ventana corta, ayudó a sostener el desempeño del cierre. El descuento sigue siendo una <b>palanca de conversión confiable</b> para la marca: incluso con poco presupuesto y poco tiempo de aprendizaje, logró un CPA competitivo de $46.251 y frecuencia baja. La oferta funciona como gatillo de urgencia y como puerta de entrada de nuevos compradores que luego pueden reactivarse vía remarketing. <b>Aprendizaje:</b> el problema no fue la mecánica sino el <b>timing</b> — lanzar las promociones con suficiente antelación permite que el algoritmo aprenda y que la oferta escale dentro de su vigencia.</p>
+  </div>
+
+  <!-- Campaña 7 -->
+  <div class="camp">
+    <div class="camp-head">
+      <div><div class="camp-tag">CAMPAÑA 07 · B2B / Leads</div><h3>Comertex — Generación de Clientes Potenciales</h3></div>
+      <span class="verdict win">Captación eficiente</span>
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="m-l">Inversión</div><div class="m-v">$288.718</div></div>
+      <div class="metric"><div class="m-l">Leads</div><div class="m-v g">112</div></div>
+      <div class="metric"><div class="m-l">CPL</div><div class="m-v g">$2.578</div></div>
+      <div class="metric"><div class="m-l">CTR</div><div class="m-v g">3,99%</div></div>
+      <div class="metric"><div class="m-l">CPC</div><div class="m-v g">$207</div></div>
+    </div>
+    <p class="read">Dirigida al formulario de Zoho, esta campaña generó <b>112 leads a un CPL de $2.578 COP</b>, un costo muy competitivo para captación B2B en el sector textil. El CTR de 3,99% indica que el mensaje resonó con la audiencia objetivo. Una segunda activación de cierre de mes optimizada a clic obtuvo un CTR excepcional del 11,16% y 1.504 clics a $38 c/u, útil para nutrir audiencias. <b>Aporte al ecosistema comercial:</b> mientras las campañas de TRU monetizan demanda existente, esta línea construye el <b>pipeline comercial de Comertex</b> —prospectos que el equipo de ventas convierte en relaciones de mayor valor y recurrencia—. Es la inversión que conecta el marketing con el crecimiento estructural del negocio.</p>
+  </div>
+
+  <h3>Hallazgo adicional · El catálogo dinámico es un activo subutilizado</h3>
+  <p>Más allá de las siete campañas del plan, los datos revelan que el <b>catálogo dinámico (ROAS 4,75x, 35 compras)</b> es el segundo mejor activo de la cuenta combinando volumen y eficiencia. Sin embargo, opera con productos agotados en el feed, lo que impide que Meta muestre todo el inventario relevante a cada usuario. <b>Sanear el catálogo es, probablemente, la optimización de mayor retorno disponible para junio</b>: no requiere más presupuesto, solo corregir el feed para desbloquear el potencial de los anuncios dinámicos.</p>
+</section>
+
+<!-- ============ 4. APRENDIZAJES ============ -->
+<section id="aprendizajes">
+  <div class="kicker"><span class="n">04</span> Principales Aprendizajes del Mes</div>
+  <h2>Lo que mayo nos enseñó</h2>
+  <div class="learn">
+    <div class="learn-item">
+      <div class="ln"></div>
+      <div><h4>Lo validado rinde más que lo nuevo</h4><p>Los anuncios con historial comprobado (Ana Jara, toallas, video de frases) sostuvieron el ROAS de la cuenta. La creatividad nueva debe testearse con presupuesto controlado antes de escalarse, no al revés.</p></div>
+    </div>
+    <div class="learn-item">
+      <div class="ln"></div>
+      <div><h4>Las fechas comerciales se construyen, no se improvisan</h4><p>Día de la Madre (nacional y Cúcuta) falló por pedir conversión a público frío sin fase previa. Un embudo por etapas —reconocimiento, consideración, conversión— es indispensable para estacionalidades.</p></div>
+    </div>
+    <div class="learn-item">
+      <div class="ln"></div>
+      <div><h4>El remarketing tiene fecha de caducidad</h4><p>La frecuencia de 6,08 en carritos confirma que las audiencias de remarketing son pequeñas y se saturan rápido. La rotación de creativos no es opcional: es mantenimiento preventivo del ROAS.</p></div>
+    </div>
+    <div class="learn-item">
+      <div class="ln"></div>
+      <div><h4>Las exclusiones de audiencia protegen la eficiencia global</h4><p>Excluir visitantes y carritos en las campañas de adquisición evitó canibalización entre prospección y remarketing, manteniendo la frecuencia de captación en 1,73 y el gasto enfocado en usuarios nuevos.</p></div>
+    </div>
+    <div class="learn-item">
+      <div class="ln"></div>
+      <div><h4>El descuento sigue siendo el gatillo de conversión más confiable</h4><p>Incluso con activación tardía, la promo de toallas convirtió con CPA bajo. Las ofertas merecen un lugar planificado en el calendario, no como recurso de cierre de mes.</p></div>
+    </div>
+    <div class="learn-item">
+      <div class="ln"></div>
+      <div><h4>La salud técnica del catálogo es performance</h4><p>El ROAS 4,75x del catálogo dinámico se logró con un feed incompleto. Optimizar inventario y disponibilidad es una palanca de crecimiento sin costo adicional de medios.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. RECOMENDACIONES ============ -->
+<section id="recomendaciones">
+  <div class="kicker"><span class="n">05</span> Recomendaciones para Junio</div>
+  <h2>Plan de acción priorizado</h2>
+  <p>Ordenadas por impacto esperado sobre el resultado del próximo mes.</p>
+
+  <div class="rec"><div class="pr p1">Prioridad 1</div><div class="rec-body"><h4>Sanear el feed del catálogo dinámico</h4><p>Corregir productos agotados y atributos del feed para desbloquear el inventario que hoy no se muestra. Es la optimización de mayor retorno disponible y no consume presupuesto adicional de medios.</p></div></div>
+
+  <div class="rec"><div class="pr p1">Prioridad 1</div><div class="rec-body"><h4>Concentrar presupuesto en los activos ganadores</h4><p>Aumentar de forma escalonada (20–30% cada 3–4 días) la inversión en Escalamiento de Ganadores y Catálogo Dinámico, que ya demostraron ROAS sólido y capacidad de volumen.</p></div></div>
+
+  <div class="rec"><div class="pr p1">Prioridad 1</div><div class="rec-body"><h4>Renovar creativos del remarketing y poner tope de frecuencia</h4><p>Rotación quincenal de piezas, ventanas de audiencia escalonadas (3 / 7 / 14 días) y límite de frecuencia para detener la fatiga detectada (6,08) antes de que erosione el retorno.</p></div></div>
+
+  <div class="rec"><div class="pr p2">Prioridad 2</div><div class="rec-body"><h4>Producir creatividad emocional para fechas especiales</h4><p>Día del Padre y temporadas siguientes requieren Reels con narrativa y propuesta de regalo —no solo producto—, validados con un test corto antes de la fecha clave.</p></div></div>
+
+  <div class="rec"><div class="pr p2">Prioridad 2</div><div class="rec-body"><h4>Implementar el embudo por etapas para toda fecha comercial</h4><p>Reconocimiento 2–3 semanas antes → consideración/tráfico → conversión sobre públicos ya impactados. Aplica especialmente a activaciones regionales como Cúcuta.</p></div></div>
+
+  <div class="rec"><div class="pr p2">Prioridad 2</div><div class="rec-body"><h4>Planificar las promociones con antelación</h4><p>Definir el calendario de descuentos (toallas, tapetes, combos) con tiempo suficiente para que el algoritmo aprenda y la oferta escale dentro de su vigencia.</p></div></div>
+
+  <div class="rec"><div class="pr p3">Prioridad 3</div><div class="rec-body"><h4>Escalar la captación de leads de Comertex</h4><p>Con un CPL de $2.578, hay margen para ampliar presupuesto y probar nuevos ángulos de mensaje, asegurando la integración limpia de los leads en Zoho y su seguimiento comercial.</p></div></div>
+
+  <div class="rec"><div class="pr p3">Prioridad 3</div><div class="rec-body"><h4>Refrescar el banco de creativos ganadores</h4><p>Los anuncios estrella (Ana Jara, toallas) rinden, pero conviene producir variantes nuevas en su mismo estilo para tener relevos listos cuando empiecen a fatigarse.</p></div></div>
+
+  <div class="rec"><div class="pr p3">Prioridad 3</div><div class="rec-body"><h4>Sostener el branding como base del público caliente</h4><p>Mantener la inversión de reconocimiento y seguidores: es la que alimenta el retargeting de público caliente, hoy el ROAS más alto de la cuenta (5,44x).</p></div></div>
+</section>
+
+<!-- ============ 6. CONCLUSIÓN ============ -->
+<section id="conclusion">
+  <div class="kicker"><span class="n">06</span> Conclusión General</div>
+  <div class="conclude">
+    <h2>Mayo confirmó dónde está el <em>verdadero motor</em> de la cuenta</h2>
+    <p>El mes cerró con <b>159 compras y ~$33,7M COP en ingresos atribuidos sobre $11,1M COP invertidos</b>, un retorno mezclado de 3,40x que se sostuvo, sin excepción, sobre activos creativos ya validados históricamente. El escalamiento de anuncios ganadores y el catálogo dinámico aportaron el grueso del volumen rentable, mientras el retargeting de público caliente entregó el retorno más eficiente por peso invertido.</p>
+    <p>Las activaciones estacionales de Día de la Madre no rindieron, pero dejan una hoja de ruta nítida: <b>las fechas comerciales se ganan con embudos construidos por etapas y creatividad emocional, no con conversión directa a público frío</b>. Ese aprendizaje, sumado al saneamiento del catálogo y a la renovación disciplinada del remarketing, define una agenda de junio con palancas de crecimiento concretas y de bajo riesgo.</p>
+    <p>La dirección estratégica es clara: <b>seguir optimizando creativos, audiencias y estructura de campañas</b>, doblar la apuesta por lo que ya funciona y profesionalizar la planeación de las fechas especiales. La cuenta tiene una base sólida; el siguiente nivel de rendimiento vendrá de la ejecución consistente de estas prioridades.</p>
+    <div class="sig">
+      <div><b>JP Digital</b>Performance Marketing · Meta Ads Partner</div>
+      <div><b>Tiendas TRU &amp; Comertex</b>Informe de resultados · Mayo 2026</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="divider"></div>
+  Informe elaborado por JP Digital con datos reales de la cuenta <span class="num">427337331869853</span> (Tiendas Tru | Publicidad), período 01–31 de mayo de 2026.<br>
+  Cifras en pesos colombianos (COP). ROAS y conversiones según ventana de atribución por defecto de Meta. Documento confidencial de uso exclusivo del cliente.
+</footer>
+
+</div>
+
+<script>
+const ink='#1C1B19', muted='#8A8578', line='#E4DBCD', clay='#B4452E', green='#2F6E4F';
+Chart.defaults.font.family="'Hanken Grotesk', sans-serif";
+Chart.defaults.color=muted;
+
+// --- ROAS vs spend ---
+const labels=['Esc. Ganadores','Catálogo Din.','Frío Testeo','Esc. 22 may','Frío Escal.','Remkt Carritos','Retgt Caliente','Toalla 50%','Madres Nac.'];
+const spend=[2378466,1800456,1456686,1423765,715849,527009,400661,185004,777654];
+const roas=[3.55,4.75,3.41,2.78,3.03,3.66,5.44,2.56,1.30];
+new Chart(document.getElementById('roasChart'),{
+  data:{labels:labels,datasets:[
+    {type:'bar',label:'Inversión (COP)',data:spend,backgroundColor:'rgba(180,69,46,.78)',borderRadius:5,yAxisID:'y',order:2},
+    {type:'line',label:'ROAS',data:roas,borderColor:green,backgroundColor:green,borderWidth:2.5,tension:.3,pointRadius:4,pointBackgroundColor:green,yAxisID:'y1',order:1}
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{usePointStyle:true,boxWidth:8,font:{size:11}}},
+      tooltip:{callbacks:{label:c=>c.dataset.label==='ROAS'?'ROAS: '+c.raw.toFixed(2)+'x':'Inversión: $'+c.raw.toLocaleString('es-CO')+' COP'}}},
+    scales:{
+      x:{ticks:{font:{size:9.5},maxRotation:50,minRotation:40},grid:{display:false}},
+      y:{position:'left',grid:{color:line},ticks:{font:{size:10},callback:v=>'$'+(v/1e6).toFixed(1)+'M'}},
+      y1:{position:'right',min:0,max:6,grid:{drawOnChartArea:false},ticks:{font:{size:10},callback:v=>v+'x'}}
+    }}
+});
+
+// --- Split donut ---
+new Chart(document.getElementById('splitChart'),{
+  type:'doughnut',
+  data:{labels:['TRU Ventas','Comertex (B2B)','Estacional Madres','Branding TRU'],
+    datasets:[{data:[8887896,981868,1029474,188272],
+      backgroundColor:['#B4452E','#2F6E4F','#C98A3D','#cdbfa8'],borderColor:'#fff',borderWidth:3}]},
+  options:{responsive:true,maintainAspectRatio:false,cutout:'62%',
+    plugins:{legend:{position:'bottom',labels:{usePointStyle:true,boxWidth:9,padding:14,font:{size:11.5}}},
+      tooltip:{callbacks:{label:c=>c.label+': $'+c.raw.toLocaleString('es-CO')+' COP'}}}}
+});
+</script>
+</body>
+</html>
